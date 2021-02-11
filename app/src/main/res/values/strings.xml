@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">JokesApp</string>
+    <string name="jokes_app">JOKES APP</string>
+    <string name="categories">Categories</string>
+    <string name="programming">Programming</string>
+    <string name="misc">Misc</string>
+    <string name="dark">Dark</string>
+    <string name="pun">Pun</string>
+    <string name="spooky">Spooky</string>
+    <string name="christmas">Christmas</string>
+    <string name="lookup">Lookup</string>
+    <string name="any">Any</string>
+    <string name="joke_list">JOKE LIST</string>
+</resources>
