@@ -54,9 +54,5 @@
         <item name="cornerSizeTopLeft">50%</item>
     </style>
 
-    <style name="ChipGoup" parent="Widget.MaterialComponents.ChipGroup">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerRadius">20dp</item>
-    </style>
 
 </resources>

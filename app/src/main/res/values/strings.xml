@@ -11,4 +11,5 @@
     <string name="lookup">Lookup</string>
     <string name="any">Any</string>
     <string name="joke_list">JOKE LIST</string>
+    <string name="layout">Linear</string>
 </resources>

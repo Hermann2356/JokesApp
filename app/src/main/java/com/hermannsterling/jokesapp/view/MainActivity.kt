@@ -1,17 +1,18 @@
 package com.hermannsterling.jokesapp.view
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
-import com.google.android.material.chip.Chip
-import com.hermannsterling.jokesapp.R
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import com.hermannsterling.jokesapp.databinding.ActivityMainBinding
 import com.hermannsterling.jokesapp.viewmodel.MainViewModel
-import java.util.HashMap
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        const val INTENT_DATA = "Intent_Data"
+    }
 
     private val viewModel by viewModels<MainViewModel>()
     private val queryMap = mapOf<String, String>("amount" to "10", "type" to "twopart")
@@ -22,12 +23,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        viewModel.getJokesByCategories("Programming", queryMap)
 
         initView()
     }
 
     private fun initView() {
+
+        viewModel.jokes.observe(this) {
+            val jokeJson = Gson().toJson(it)
+            val intent = Intent(this, SecondActivity::class.java).apply {
+                putExtra(INTENT_DATA, jokeJson)
+            }
+            startActivity(intent)
+        }
 
         binding.chipAny.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -66,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         binding.btnLookup.setOnClickListener {
             if (categories.isNotEmpty()) {
                 val categoriesString = categories.joinToString("+")
-                Log.d("MAIN ACTIVITY", categoriesString)
                 viewModel.getJokesByCategories(categoriesString, queryMap)
             }
 
@@ -91,6 +98,4 @@ class MainActivity : AppCompatActivity() {
         binding.chipChristmas.isChecked = false
         categories.clear()
     }
-
-
 }

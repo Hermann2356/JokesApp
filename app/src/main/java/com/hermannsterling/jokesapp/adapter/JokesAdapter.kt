@@ -6,9 +6,10 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.hermannsterling.jokesapp.databinding.ItemJokeBinding
 import com.hermannsterling.jokesapp.model.Joke
-import kotlin.reflect.KFunction1
+import com.hermannsterling.jokesapp.view.SecondActivity
+import kotlin.reflect.KFunction2
 
-class JokesAdapter(@NonNull private val jokes: List<Joke>, private val listener: KFunction1<Joke, Unit>) :
+class JokesAdapter(@NonNull private val jokes: List<Joke>, private val listener: JokeClickListener) :
     RecyclerView.Adapter<JokesAdapter.JokeViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -37,7 +38,7 @@ class JokesAdapter(@NonNull private val jokes: List<Joke>, private val listener:
         return jokes.size
     }
 
-    class JokeViewHolder(@NonNull private val binding: ItemJokeBinding, listener: KFunction1<Joke, Unit>) :
+    class JokeViewHolder(@NonNull private val binding: ItemJokeBinding, private val listener: JokeClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
 
@@ -46,7 +47,9 @@ class JokesAdapter(@NonNull private val jokes: List<Joke>, private val listener:
         }
 
         fun setOnClick(@NonNull joke: Joke) {
-
+            binding.tvJoke.setOnClickListener{
+                listener.itemClicked(joke)
+            }
         }
     }
 }

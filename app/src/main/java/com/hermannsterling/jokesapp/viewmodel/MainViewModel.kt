@@ -18,15 +18,15 @@ class MainViewModel() : ViewModel() {
         private const val TAG = "MainModelView"
     }
 
-    private val _jokes = MutableLiveData<List<Joke>>();
+    private val _jokes = MutableLiveData<JokeResponse>()
 
-    val jokes : LiveData<List<Joke>>
+    val jokes : LiveData<JokeResponse>
         get() = _jokes
 
     fun getJokesByCategories(categories : String, queryMap : Map<String, String>) {
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
             val jokeResponse = JokeRepo.getJokesByCategory(categories, queryMap)
-            _jokes.value = jokeResponse.jokes
+            _jokes.postValue(jokeResponse)
         }
     }
 }
